@@ -94,6 +94,11 @@ class Controller extends \Controller_Template {
 		return parent::after($response);
 	}
 
+	public static function sitemap($data = array())
+	{
+		header('Content-Type: application/xml');
+		return '<?xml version="1.0" encoding="UTF-8" ?>'."\n".\View::forge('sitemap',array('data' => $data),false);
+	}
 
 	public function _get_message()
 	{
