@@ -38,7 +38,7 @@ class Controller extends \Controller_Template {
 		\View::set_global('current_user', $this->current_user);
 
 		//Load the menu model to show auth (logged in or logged out)
-		$top_menu = \Request::factory('menu/auth')->execute();
+		$top_menu = \Request::forge('menu/auth')->execute();
 		$this->template->set('top_menu', $top_menu, false);
 
 	}
