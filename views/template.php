@@ -5,7 +5,6 @@
 	<title><?php echo $page_title; ?></title>
 
 	<?php echo \Pump\Asset::less('bootstrap.css'); ?>
-	<?php echo \Pump\Asset::css('jquery.fancybox-1.3.4.css'); ?>
 	
 	<?php echo \Pump\Asset::js(array(
 		'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js',
@@ -14,7 +13,6 @@
 		'bootstrap-tooltip.js',
 		'bootstrap-popover.js',
 		'bootstrap-tab.js',
-		'jquery.fancybox-1.3.4.pack.js',
 		)); ?>
 
 	<?php if(isset($page_meta)){ echo Html::meta($page_meta); } ?>
@@ -27,19 +25,7 @@
 </head>
 <body>
 
-	<div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="<?php echo Uri::create('/'); ?>"><?php echo SITE_NAME; ?></a>
-
-        </div>
-      </div>
-    </div>
+	<?php echo $top_menu; ?>
 
 
 	
@@ -73,7 +59,7 @@
 		</p>
 			<hr>	
 		<p>
-			<small class="pull-right">CERTAIN CONTENT THAT APPEARS ON THIS SITE COMES FROM AMAZON EU S.à r.l. THIS CONTENT IS PROVIDED ‘AS IS’ AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.</small>
+			<small class="pull-right">Page rendered in {exec_time}s using {mem_usage}mb of memory.</small>
 		</p>
 	</footer>
 		

@@ -190,7 +190,7 @@ class Messages
 		{
 			if($item['type'] == 'W')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('warning')
 							->title(\Lang::get('global.warning'))
 							->content($item['message'])
@@ -199,7 +199,7 @@ class Messages
 
 			if($item['type'] == 'E')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('error')
 							->title(\Lang::get('global.error'))
 							->content($item['message'])
@@ -208,7 +208,7 @@ class Messages
 
 			if($item['type'] == 'S')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('success')
 							->title(\Lang::get('global.success'))
 							->block(true)
@@ -218,7 +218,7 @@ class Messages
 
 			if($item['type'] == 'I')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('info')
 							->title(\Lang::get('global.info'))
 							->content($item['message'])
@@ -229,7 +229,7 @@ class Messages
 			//Block Messages
 			if($item['type'] == 'BW')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('warning')
 							->title(\Lang::get('global.warning'))
 							->content($item['message'])
@@ -239,7 +239,7 @@ class Messages
 			
 			if($item['type'] == 'BE')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('error')
 							->title(\Lang::get('global.error'))
 							->content($item['message'])
@@ -249,7 +249,7 @@ class Messages
 
 			if($item['type'] == 'BS')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('success')
 							->title(\Lang::get('global.success'))
 							->content($item['message'])
@@ -259,7 +259,7 @@ class Messages
 
 			if($item['type'] == 'BI')
 			{
-				$return_message[] = \Elements::alert()
+				$return_message[] = \Pump\Helper\Elements::alert()
 							->style('info')
 							->title(\Lang::get('global.info'))
 							->content($item['message'])
