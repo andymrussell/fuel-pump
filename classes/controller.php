@@ -28,6 +28,8 @@ class Controller extends \Controller_Template {
 	{
 		parent::before();
 		
+		\Config::load('constants');
+
 		//Autoload the account module as it contains the user access
 		\Fuel::add_module("Auth");
 
