@@ -1,0 +1,7 @@
+<?php
+
+define('SITE_NAME','Website Name');
+define('SITE_VERSION','1.0');
+
+//We have to have this at the end to avoid array combine issues
+return array();
