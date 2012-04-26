@@ -167,6 +167,8 @@ class Messages
 	public static function get_flash_messages()
 	{
 		$session = \Session::forge();
+		$session->set_flash_id('pump');
+		
 		$messages = $session->get_flash('messages');
 
 		if(isset($messages))
