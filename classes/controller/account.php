@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Account Details methods
+ * Auth protected
+ */
 namespace Pump;
 
 class Controller_Account extends Controller {
@@ -7,6 +10,19 @@ class Controller_Account extends Controller {
 
 //	private $form_type = 'form-stacked';
 	private $form_type = 'form-horizontal';
+
+
+	public function before()
+	{
+		parent::before();
+        \Lang::load('login');
+        \Config::load('login');
+
+		if ( ! \Auth::check())
+		{
+			\Pump\Core\Util::redirect(\Config::get('login_url'));
+		}
+	}
 
 	/**
 	 * Account Settings page
@@ -123,8 +139,8 @@ class Controller_Account extends Controller {
 
     	if (\Input::method() == 'POST')
     	{
-    		//If the form was posted, then populate the model with the posted values 
-    		$profile_model->populate();
+			//If the form was posted, then populate the model with the posted values 
+			$profile_model->populate();
 
 			// Deal with messages
 			try

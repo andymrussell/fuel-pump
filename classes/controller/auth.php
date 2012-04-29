@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * This class should only control basic log in / log out functionality 
+ * IT DOES NOT CHECK AUTH STATUS BY DEFAULT
+ */
 
 namespace Pump;
 
@@ -70,58 +73,61 @@ class Controller_Auth extends Controller {
 
     public function action_create()
     {
+        //Check if the config allows for new account creations
         if(\Config::get('create_access') == false)
         {
             \Pump\Core\Messages::set(\Lang::get('messages.access-denied'), 'E');
             \Pump\Core\Util::redirect(\Config::get('after_create_url'));
-            exit();
         }
-
-        if (\Input::method() == 'POST')
+        else
         {
 
-            $val = \Validation::factory();
-            $val->add('username', 'Username')
-                ->add_rule('required')
-                ->add_rule('min_length', 3)
-                ->add_rule('max_length', 10);
-            
-            $val->add('email', 'Email')
-                ->add_rule('valid_email')        
-                ->add_rule('required')
-                ->add_rule('min_length', 3);
-                                        
-            $val->add('password', 'Password')
-                ->add_rule('required')
-                ->add_rule('min_length', 3)
-                ->add_rule('max_length', 10);
-
-            $val->add('conf_password', 'Confirm Password')
-                ->add_rule('required')
-                ->add_rule('match_field','password');
-
-     
-            if ($val->run())
+            if (\Input::method() == 'POST')
             {
-                $create_user = \Auth::instance()->create_user( 
-                    $val->validated('username'), 
-                    $val->validated('password'), 
-                    $val->validated('email'));
 
-                if($create_user)
+                $val = \Validation::factory();
+                $val->add('username', 'Username')
+                    ->add_rule('required')
+                    ->add_rule('min_length', 3)
+                    ->add_rule('max_length', 10);
+                
+                $val->add('email', 'Email')
+                    ->add_rule('valid_email')        
+                    ->add_rule('required')
+                    ->add_rule('min_length', 3);
+                                            
+                $val->add('password', 'Password')
+                    ->add_rule('required')
+                    ->add_rule('min_length', 3)
+                    ->add_rule('max_length', 10);
+
+                $val->add('conf_password', 'Confirm Password')
+                    ->add_rule('required')
+                    ->add_rule('match_field','password');
+
+         
+                if ($val->run())
                 {
-                    \Pump\Core\Util::redirect(\Config::get('after_create_url'));
-                }
-                else
-                { 
-                    \Pump\Core\Messages::set(\Lang::get('action.create.failure'), 'E');
+                    $create_user = \Auth::instance()->create_user( 
+                        $val->validated('username'), 
+                        $val->validated('password'), 
+                        $val->validated('email'));
+
+                    if($create_user)
+                    {
+                        \Pump\Core\Util::redirect(\Config::get('after_create_url'));
+                    }
+                    else
+                    { 
+                        \Pump\Core\Messages::set(\Lang::get('action.create.failure'), 'E');
+                    }
                 }
             }
+
+
+            $this->page_title = \Lang::get('page.create.title');
+            $this->template->content = \View::factory('account/create');  
         }
-
-
-        $this->page_title = \Lang::get('page.create.title');
-        $this->template->content = \View::factory('account/create');  
     }
 
 }
