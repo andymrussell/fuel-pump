@@ -1,7 +1,7 @@
 <h1><?php echo \Lang::get('form.title'); ?><br/>
 <small><?php echo \Lang::get('form.subtitle'); ?></small></h1>
 
-<?php echo Form::open(array('action' => 'auth/login', 'class' => 'form-horizontal')); ?>
+<?php echo Form::open(array('class' => 'form-horizontal')); ?>
 
   <div class="<?php echo Pump\Helper\Elements::form_field_class('username'); ?>">
     <?php echo Form::label(\Lang::get('field.username'),null,array('class' => 'control-label')); ?>

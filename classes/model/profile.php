@@ -5,6 +5,7 @@ namespace Pump\Model;
 class Model_Profile extends \Orm\Model
 {
 
+    protected static $_table_name = 'user_profiles';
     protected static $_belongs_to = array('user');
 
     protected static $_properties = array(
@@ -19,16 +20,16 @@ class Model_Profile extends \Orm\Model
             'validation' => array('required', 'min_length' => array(1), 'max_length' => array(100)),
             'form' => array('type' => 'text', 'class' => 'span6'),
         ),
-        'gender' => array(
-            'data_type' => 'varchar',
-            'validation' => array('required', 'min_length' => array(1), 'max_length' => array(1)),
-            'form' => array('type' => 'select', 'class' => 'span6'),
-        ),
-        'dob' => array(
-            'data_type' => 'varchar',        
-            'validation' => array('required', 'min_length' => array(8), 'max_length' => array(8)),
-            'form' => array('type' => 'text', 'class' => 'span6'),
-        ),
+        // 'gender' => array(
+        //     'data_type' => 'varchar',
+        //     'validation' => array('required', 'min_length' => array(1), 'max_length' => array(1)),
+        //     'form' => array('type' => 'select', 'class' => 'span6'),
+        // ),
+        // 'dob' => array(
+        //     'data_type' => 'varchar',        
+        //     'validation' => array('required', 'min_length' => array(8), 'max_length' => array(8)),
+        //     'form' => array('type' => 'text', 'class' => 'span6'),
+        // ),
         // 'location' => array(
         //     'data_type' => 'varchar',
         //     'validation' => array('required', 'min_length' => array(1), 'max_length' => array(45)),
@@ -45,7 +46,7 @@ class Model_Profile extends \Orm\Model
         ),
         'user_id' => array(
             'data_type' => 'int',
-            'validation' => array('required'),
+            'validation' => array(),
             'form' => array(
                 'type' => false,
             ),
@@ -97,11 +98,16 @@ class Model_Profile extends \Orm\Model
         }
 
         // set the gender options
-        static::$_properties['gender']['form']['options'] = \Lang::get('other.genderlist');
+        if(isset(static::$_properties['gender']))
+        {
+            static::$_properties['gender']['form']['options'] = \Lang::get('other.genderlist');
+        }    
         
         // set the country options
-        static::$_properties['country_id']['form']['options'] = \Lang::get('countries');
-
+        if(isset(static::$_properties['country_id']))
+        {
+            static::$_properties['country_id']['form']['options'] = \Lang::get('countries');
+        }
         //Additional bits we might need to set at a later date
 
         // set the locale options

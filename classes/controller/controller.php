@@ -98,9 +98,11 @@ class Controller extends \Controller_Template {
 
 	public function _get_message()
 	{
-	
-		$message = \Pump\Core\Messages::get_messages();
-		$this->template->set('message', $message, false);
+		if(\Request::main() === \Request::active())
+		{
+			$message = \Pump\Core\Messages::get_messages();
+			$this->template->set('message', $message, false);
+		}
 
 	}
 

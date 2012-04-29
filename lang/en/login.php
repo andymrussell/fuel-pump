@@ -33,6 +33,9 @@ return array(
 		'login' => array(
 			'failure'	=> 'Incorrect login details.',
 		),
+		'create' => array(
+			'failure'	=> 'Cannot create an account.',
+		),
 	),
 
 
@@ -43,6 +46,7 @@ return array(
 
 	// messages
 	'message' => array(
+		'access-denied'	=> 'Access Denied',
 	),
 
 	// validation strings

@@ -180,8 +180,8 @@ class Messages
 	public static function get_messages()
 	{
 		//Ensure that we are only checking this once, as any HMVC calls will get the messge again. :(
-		static::$_messages = array();
-		
+		// static::$_messages = array();
+
 		//Put any session based messages back into the pool
 		static::get_flash_messages();
 
