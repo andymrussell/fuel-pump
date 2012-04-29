@@ -8,6 +8,7 @@ Autoloader::add_classes(array(
 	'Pump\\Controller' 			    				=> __DIR__.'/classes/controller/controller.php',
 	'Pump\\Controller_Auth' 			    		=> __DIR__.'/classes/controller/auth.php',
 	'Pump\\Controller_Account' 			    		=> __DIR__.'/classes/controller/account.php',
+	'Pump\\Controller_Admin' 			    		=> __DIR__.'/classes/controller/admin.php',
 	'Pump\\Core\\Exception'  	    		    	=> __DIR__.'/core/exception.php',
 	'Pump\\Core\\Messages'  		       		 	=> __DIR__.'/core/messages.php',
 	'Pump\\Core\\Util' 	 		       		 		=> __DIR__.'/core/util.php',

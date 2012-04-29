@@ -5,30 +5,17 @@
  */
 namespace Pump;
 
-class Controller_Account extends Controller {
+class Controller_Account extends Controller_Admin {
 
 
 //	private $form_type = 'form-stacked';
 	private $form_type = 'form-horizontal';
 
-
-	public function before()
-	{
-		parent::before();
-        \Lang::load('login');
-        \Config::load('login');
-
-		if ( ! \Auth::check())
-		{
-			\Pump\Core\Util::redirect(\Config::get('login_url'));
-		}
-	}
-
 	/**
 	 * Account Settings page
 	 * Change email and password
 	 */
-    public function action_index()
+    public function action_details()
     {
     	
 		$user_model = \Pump\Model\Model_User::find($this->current_user->id);
