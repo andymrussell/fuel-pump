@@ -35,11 +35,6 @@ class Controller_Account extends Controller {
 		$val = $form->validation();
 
 
-		$this->build_left_nav();
-
-
-
-
     	if (\Input::method() == 'POST')
     	{
 			// Deal with messages
@@ -115,24 +110,49 @@ class Controller_Account extends Controller {
     public function action_profile()
     {   
         $profile_model = \Pump\Model\Model_Profile::find()->where('user_id', $this->current_user->id)->get_one();
-                
+        if(!$profile_model)
+        {
+        	$profile_model = new \Pump\Model\Model_Profile();
+        	$profile_model->user_id = $this->current_user->id;
+        }
+
         $form = \Fieldset::factory('test', array(
                              'form_attributes' => array('class' => $this->form_type)
                              ))->add_model('Pump\Model\Model_Profile', $profile_model)->repopulate();
-    	
+    	$val = $form->validation();
+
     	if (\Input::method() == 'POST')
     	{
+    		//If the form was posted, then populate the model with the posted values 
+    		$profile_model->populate();
+
 			// Deal with messages
 			try
 			{
-				if ($profile_model->save())
+				if ($val->run())
 				{
-					\Pump\Core\Messages::set(\Lang::get('action.edit.success'), 'S');
+					if ($profile_model->save())
+					{
+						\Pump\Core\Messages::set(\Lang::get('action.edit.success'), 'S');
+					}
+					else
+					{
+						\Pump\Core\Messages::set(\Lang::get('action.edit.failure'), 'E');
+					}
 				}
 				else
 				{
-					\Pump\Core\Messages::set(\Lang::get('action.edit.failure'), 'E');
+					$message = '';
+				
+					$errors = $val->error();
+					//Loop validation errors to send back as info.
+					foreach($errors as $error)
+					{
+						$message .= $error->get_message(false, '<p>', '</p>');
+					}
+					\Pump\Core\Messages::set($message, 'E');
 				}
+
 			}
 			catch (\Orm\ValidationFailed $e)
 			{
@@ -153,31 +173,6 @@ class Controller_Account extends Controller {
     }
 
 
-    private function build_left_nav()
-    {
-		//Show the left menu?
-		$this->left_menu['contents'][] = array(
-			'Accounts' => array(
-				array(
-					'selected'	=> false,
-					'title'		=> 'Settings',
-					'icon'		=> 'icon-cog',
-					'href'		=> '#',
-				),
-				array(
-					'selected'	=> false,
-					'title'		=> 'More',
-					'icon'		=> 'icon-user',
-					'href'		=> '#',
-				)
-			),
-		);
-
-
-		//What contents does it have?
-		$this->left_menu['display'] = true;
-		
-    }
 
 }
 

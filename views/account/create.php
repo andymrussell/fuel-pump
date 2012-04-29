@@ -16,7 +16,7 @@ if(Validation::instance()->show_errors())
 
 <?php //echo Validation::instance()->show_errors(); ?>
 
-<?php echo Form::open('account/create'); ?>
+<?php echo Form::open(); ?>
   <fieldset>
   <legend>Create your account</legend>
 

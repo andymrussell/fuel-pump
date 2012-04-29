@@ -9,6 +9,7 @@ class Controller_Auth extends Controller {
     {
         parent::before();
         \Lang::load('login');
+        \Config::load('login');
     }
 
     public function action_index()
@@ -20,6 +21,8 @@ class Controller_Auth extends Controller {
 
     public function action_login()
     {
+
+
         $view_data = array();
 
         if (\Input::method() == 'POST')
@@ -35,7 +38,7 @@ class Controller_Auth extends Controller {
                 if($auth->login($_POST['username'],$_POST['password']))
                 {
                     // credentials ok, go right in
-                    \Response::redirect('dashboard/');
+                    \Pump\Core\Util::redirect(\Config::get('after_login_url'));
                 }
                 else
                 {
@@ -58,7 +61,8 @@ class Controller_Auth extends Controller {
     public function action_logout()
     {
         \Auth::instance()->logout();
-        \Response::redirect('auth/login');
+        \Pump\Core\Util::redirect('/');
+
     }
 
 
@@ -66,6 +70,13 @@ class Controller_Auth extends Controller {
 
     public function action_create()
     {
+        if(\Config::get('create_access') == false)
+        {
+            \Pump\Core\Messages::set(\Lang::get('messages.access-denied'), 'E');
+            \Pump\Core\Util::redirect(\Config::get('after_create_url'));
+            exit();
+        }
+
         if (\Input::method() == 'POST')
         {
 
@@ -99,11 +110,11 @@ class Controller_Auth extends Controller {
 
                 if($create_user)
                 {
-                    echo 'Account Created';
+                    \Pump\Core\Util::redirect(\Config::get('after_create_url'));
                 }
                 else
                 { 
-                    echo 'nope';
+                    \Pump\Core\Messages::set(\Lang::get('action.create.failure'), 'E');
                 }
             }
         }
