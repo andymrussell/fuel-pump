@@ -6,13 +6,13 @@
 
 namespace Pump;
 
-class Controller_Auth extends Controller {
+class Controller_Auth extends Controller_Admin {
 
     public function before()
     {
         parent::before();
-        \Lang::load('login');
-        \Config::load('login');
+        \Lang::load('admin');
+        \Config::load('admin');
     }
 
     public function action_index()
@@ -24,7 +24,6 @@ class Controller_Auth extends Controller {
 
     public function action_login()
     {
-
 
         $view_data = array();
 
@@ -41,7 +40,7 @@ class Controller_Auth extends Controller {
                 if($auth->login($_POST['username'],$_POST['password']))
                 {
                     // credentials ok, go right in
-                    \Pump\Core\Util::redirect(\Config::get('after_login_url'));
+                    \Pump\Core\Util::redirect(\Config::get('main_admin_url'));
                 }
                 else
                 {
@@ -77,7 +76,7 @@ class Controller_Auth extends Controller {
         if(\Config::get('create_access') == false)
         {
             \Pump\Core\Messages::set(\Lang::get('messages.access-denied'), 'E');
-            \Pump\Core\Util::redirect(\Config::get('after_create_url'));
+            \Pump\Core\Util::redirect(\Config::get('login_url'));
         }
         else
         {
