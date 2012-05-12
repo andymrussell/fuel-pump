@@ -17,7 +17,7 @@ class Controller_Auth extends Controller_Admin {
 
     public function action_index()
     {
-        \Response::redirect('auth/login');
+        \Pump\Core\Util::redirect(\Config::get('login_url'));
     }
 
 
