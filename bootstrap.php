@@ -34,6 +34,7 @@ Autoloader::add_classes(array(
 	//Other Classes
 	'Pump\\Pagination' 	   							=> __DIR__.'/classes/pagination.php',
 	'Pump\\Asset'									=> __DIR__.'/classes/asset.php',
+	'Pump\\Partial'									=> __DIR__.'/classes/partial.php',
 
 
 	'Extend\Fieldset_Field' 						=>__DIR__.'/classes/field.php',
