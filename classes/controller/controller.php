@@ -4,30 +4,30 @@ namespace Pump;
 
 class Controller extends \Controller_Template {
 
+	public $template = 'layouts/default';
+
+	protected $view = '';
+	protected $data = array();
 
 	public $page_title;
 	public $page_meta;
 	
-	public $dimensions = array(
-			'left_col'		=> array(
-				'display'		=> false,
-				'dimensions'	=> 2,
-			),
-			'middle_col'	=> array(
-				'display'		=> false,
-				'dimensions'	=> 8,
-			),
-			'right_col'		=> array(
-				'display'		=> false,
-				'dimensions'	=> 2,
-			),
-		);
+
 
 
 	public function before()
 	{
 		parent::before();
-		
+
+		$this->controller = strtolower(str_replace('Controller_','',\Request::active()->controller));
+		$this->action = \Request::active()->action;
+
+		//Check if there is a a specific template for this controller
+		if (file_exists(APPPATH . 'views/layouts/' . $this->controller . '.php'))
+		{
+			$this->template = \View::forge('layouts/'.$this->controller);
+		}
+
 		// Assign current_user to the instance so controllers can use it
 		$this->current_user = \Auth::check() ? \Pump\Model\Model_User::find_by_username(\Auth::get_screen_name()) : '';
 
@@ -40,24 +40,33 @@ class Controller extends \Controller_Template {
 	}
 
 
-	private function _check_menu_dimensions()
-	{
-		if(!isset($this->template->left_col) || empty($this->template->left_col))
-		{
-			$this->dimensions['middle_col']['dimensions'] = $this->dimensions['middle_col']['dimensions'] + $this->dimensions['left_col']['dimensions'];
-			$this->dimensions['left_col']['dimensions'] = 0;
-		}
 
-		if(!isset($this->template->right_col) || empty($this->template->right_col))
-		{
-			$this->dimensions['middle_col']['dimensions'] = $this->dimensions['middle_col']['dimensions'] + $this->dimensions['right_col']['dimensions'];
-			$this->dimensions['right_col']['dimensions'] = 0;
-		}
-	}
 
-	// After controller method has run output the template
+	// After controller method has run, output the template
 	public function after($response)
 	{
+		//Pass everything assigned to $this->data globally over all views
+		foreach($this->data as $key => $value)
+		{
+			\View::set_global($key, $value);		
+		}
+
+		//Work out what view is being set
+		if(empty($this->view))
+		{
+			$view = $this->controller.'/'.$this->action;
+		}
+		else
+		{
+			$view = $this->view;
+		}
+		
+		$this->template->set('content', \View::factory($view,null,false), false);
+
+
+
+
+
 		//Set the title name
 		$this->template->set('page_title', $this->page_title, false);
 
@@ -76,9 +85,6 @@ class Controller extends \Controller_Template {
 		//Get the messages
 		$this->_get_message();
 
-		//Check the dimensions of and remove the side nav where needed
-		$this->_check_menu_dimensions();
-		\View::set_global('dimensions', $this->dimensions);
 
 		// If the response is a Response object, we don't want to create a new one
 		if ($this->auto_render === true and ! $response instanceof \Response)
