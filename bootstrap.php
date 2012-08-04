@@ -6,6 +6,7 @@ Autoloader::add_core_namespace('Extend');
 
 Autoloader::add_classes(array(
 	'Pump\\Controller' 			    				=> __DIR__.'/classes/controller/controller.php',
+	'Pump\\Rest'	 			    				=> __DIR__.'/classes/controller/rest.php',
 	'Pump\\Controller_Auth' 			    		=> __DIR__.'/classes/controller/auth.php',
 	'Pump\\Controller_Account' 			    		=> __DIR__.'/classes/controller/account.php',
 	'Pump\\Controller_Admin' 			    		=> __DIR__.'/classes/controller/admin.php',

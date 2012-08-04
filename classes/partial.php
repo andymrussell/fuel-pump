@@ -7,9 +7,9 @@ class Partial
 {
 	public static function get($name, $data, $loop = false)
 	{
+		$module = \Request::active()->module;
 		$controller = strtolower(str_replace('Controller_','',\Request::active()->controller));
 		$action = \Request::active()->action;
-
 
 		if(strpos('/',$name) === FALSE)
 		{
@@ -24,6 +24,14 @@ class Partial
 			$name = implode('/', $parts);
 		}
 
+
+		if(isset($module))
+		{
+			//With HMVC we need to default load the view in the module
+			$split = explode('\\',$name);
+			$view = $split[1];
+			$name = $module.'::'.$view;
+		}
 
 		$output = "";
 		if($loop && is_array($data))

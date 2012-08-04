@@ -21,7 +21,7 @@ INSERT INTO `users` VALUES(2, 'admin', 'NtgTF8q6Z9UyyUwQS7Ma5Bvj+uTrK/F66iMji9su
 
 
 
-CREATE TABLE `profiles` (
+CREATE TABLE `user_profiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `f_name` varchar(45) NOT NULL,
@@ -39,4 +39,4 @@ CREATE TABLE `profiles` (
 -- Dumping data for table `profiles`
 --
 
-INSERT INTO `profiles` VALUES(1, 2, 'Andy', 'Russell', 'm', 0, 'London', 'gb', 0, 0);
+INSERT INTO `user_profiles` VALUES(1, 2, 'Andy', 'Russell', 'm', 0, 'London', 'gb', 0, 0);

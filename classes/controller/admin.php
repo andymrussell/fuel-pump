@@ -4,7 +4,7 @@ namespace Pump;
 
 class Controller_Admin extends Controller {
 
-	protected static $skip_auth_check = array('login','logout');
+	protected static $skip_auth_check = array('login','logout','create', 'social');
 
 	public function before()
 	{
@@ -12,14 +12,12 @@ class Controller_Admin extends Controller {
 		\Lang::load('login');
 		\Config::load('login');
 
-
 		$segment = \Uri::segment(2);
 		if(!in_array($segment,static::$skip_auth_check))
 		{
 			if ( ! \Auth::check())
 			{
 				\Pump\Core\Util::redirect(\Config::get('login_url'));
-
 			}			
 		}
 	}

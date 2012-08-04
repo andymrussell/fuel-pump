@@ -62,8 +62,9 @@ class Controller_Account extends Controller_Admin {
 					}
 					else
 					{
-						// It didnt update correctly
+						// It didnt update correctly (we notify here as there is password fields - so it might get confusing)
 						\Pump\Core\Messages::set(\Lang::get('message.nothing_to_update'), 'I');	
+
 					}
 			
 				}
@@ -94,17 +95,10 @@ class Controller_Account extends Controller_Admin {
 			}	
 		}
 		
-		//\System\Core\Util::redirect($this->baseurl);		
-
-
-		\View::set_global('form', $form);
+		$this->view = 'account/form';
 		$this->page_title = \Lang::get('form.title');
-		$this->template->content = \View::forge('account/form',null,false);
-
+		$this->data['form'] = $form;
     }
-
-
-
 
 
     /**
@@ -115,11 +109,13 @@ class Controller_Account extends Controller_Admin {
         $profile_model = \Pump\Model\Model_Profile::find()->where('user_id', $this->current_user->id)->get_one();
         if(!$profile_model)
         {
-        	$profile_model = new \Pump\Model\Model_Profile();
-        	$profile_model->user_id = $this->current_user->id;
+			$profile_model = new \Pump\Model\Model_Profile();
+			$profile_model->user_id = $this->current_user->id;
         }
+        $this->model = $profile_model;
 
-        $form = \Fieldset::factory('test', array(
+
+        $form = \Fieldset::forge('test', array(
                              'form_attributes' => array('class' => $this->form_type)
                              ))->add_model('Pump\Model\Model_Profile', $profile_model)->repopulate();
     	$val = $form->validation();
@@ -166,13 +162,10 @@ class Controller_Account extends Controller_Admin {
 
 		}
 		
-		//\System\Core\Util::redirect($this->baseurl);		
 
-		\View::set_global('form', $form);
-
+		$this->view = 'account/form';
 		$this->page_title = \Lang::get('form.title');
-		$this->template->content = \View::forge('account/form',null,false);
-
+		$this->data['form'] = $form;
     }
 
 

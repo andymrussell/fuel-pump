@@ -15,15 +15,29 @@ return array(
 	),
 
 	'form' => array(
-		'title' 	=> 'Login',
-		'subtitle'	=> 'Enter your login details below',
+		'login' => array(
+			'title' 		=> 'Login',
+			'subtitle'		=> 'Enter your login details below',
+			'social_title'	=> 'Or login with Facebook',
+		),
+		'create' => array(
+			'title' 	=> 'Create your account',
+			'subtitle'	=> 'Signing up is simple, and only takes a few seconds!',
+		),
+
 	),
 		
 	// form field labels
 	'field' => array(
-		'username' => 'Username',
-		'password' => 'Password',
-		'login' => 'Login',
+		'f_name' 	=> 'First Name',
+		'l_name' 	=> 'Last Name',
+		'username' 	=> 'Username',
+		'password' 	=> 'Password',
+		'country_id'=> 'Country',
+		'confirm-password' => 'Confirm Password',
+		'email' 	=> 'Email',
+		'login'		=> '<i class="icon-signin"></i> Login',
+		'create'	=> 'Create',
 	),
 
 
@@ -34,7 +48,8 @@ return array(
 			'failure'	=> 'Incorrect login details.',
 		),
 		'create' => array(
-			'failure'	=> 'Cannot create an account.',
+			'failure'		=> 'Cannot create an account.',
+			'validation'	=> 'Some of the fields are not valid.',
 		),
 	),
 

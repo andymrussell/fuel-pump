@@ -12,7 +12,7 @@ class Elements
 	{
 		$class = 'control-group';
 
-		if(\Validation::instance()->errors($valid))
+		if(\Validation::instance()->error($valid))
 		{
 			$class .=' error';	
 		}
